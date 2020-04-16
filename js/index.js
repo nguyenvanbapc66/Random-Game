@@ -39,6 +39,7 @@ class Body extends React.Component {
         this.setState({
             numberOfGuessing: 0,
             inputValue: 0,
+            maximumNumberGuessingL 10,
             randomNumber: this.randomNumber(),
             message: ''
         })
@@ -64,12 +65,18 @@ class Body extends React.Component {
 
     guessing = () => {
         const {inputValue, randomNumber, numberOfGuessing} = this.state
+        const newNumberOfGuessing = numberOfGuessing + 1
         if(inputValue < randomNumber) {
-            this.setState({...this.state, numberOfGuessing: numberOfGuessing + 1, message: "Your number is too small"})
+            this.setState({...this.state, numberOfGuessing: newNumberOfGuessing, message: "Your number is too small"})
         } else if(inputValue > randomNumber){
-            this.setState({...this.state,numberOfGuessing: numberOfGuessing + 1, message: "Your number is too big"})
+            this.setState({...this.state,numberOfGuessing: newNumberOfGuessing, message: "Your number is too big"})
         } else{
             alert("You win with score: " + (this.state.numberOfGuessing + 1))
+            this.newGame()
+        }
+        if(newNumberOfGuessing >= this.state.maximunNumberGuessing) {
+            alert("You lose!")
+            this.newGame()
         }
     }
 
